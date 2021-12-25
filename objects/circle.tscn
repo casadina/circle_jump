@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://objects/color.shader" type="Shader" id=1]
 [ext_resource path="res://assets/images/circle1_n.png" type="Texture" id=2]
@@ -79,6 +79,13 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://assets/fonts/Xolonium-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = SubResource( 5 )
+
 [node name="Circle" type="Area2D"]
 self_modulate = Color( 1, 1, 1, 0 )
 script = ExtResource( 3 )
@@ -103,3 +110,13 @@ shape = SubResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/capture = SubResource( 4 )
 anims/implode = SubResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 6 )
+text = "1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
