@@ -87,7 +87,6 @@ size = 64
 font_data = SubResource( 5 )
 
 [node name="Circle" type="Area2D"]
-self_modulate = Color( 1, 1, 1, 0 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -112,8 +111,14 @@ anims/capture = SubResource( 4 )
 anims/implode = SubResource( 3 )
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.5
+margin_top = -39.0
+margin_right = 22.5
+margin_bottom = 39.0
 custom_fonts/font = SubResource( 6 )
 text = "1"
 align = 1

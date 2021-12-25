@@ -35,6 +35,6 @@ func spawn_circle(_position=null):
 
 func _on_Jumper_captured(object):
 	camera.position = object.position
-	object.capture()
+	object.capture(player)
 	call_deferred("spawn_circle")
 	
