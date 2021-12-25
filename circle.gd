@@ -6,6 +6,7 @@ onready var circle_collision = $CircleCollision
 onready var sprite = $Sprite
 onready var sprite_size = sprite.texture.get_size()
 onready var collision_shape = circle_collision.shape
+onready var animation_player = $AnimationPlayer
 
 var radius = 50
 var rotation_speed = PI
@@ -24,3 +25,13 @@ func init(_position, _radius=radius):
 
 func _process(delta):
 	$Pivot.rotation += rotation_speed * delta
+	
+	
+func capture():
+	animation_player.play("capture")
+
+
+func implode():
+	animation_player.play("implode")
+	yield(animation_player, "animation_finished")
+	queue_free()
