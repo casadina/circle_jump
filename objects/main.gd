@@ -27,7 +27,7 @@ func spawn_circle(_position=null):
 	var circle = Circle.instance()
 	if not _position:
 		var x = rand_range(-150, 150)
-		var y = rand_range(-300, 300)
+		var y = rand_range(-500, -400)
 		_position = player.target.position + Vector2(x, y)
 	add_child(circle)
 	circle.init(_position)

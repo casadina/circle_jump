@@ -7,7 +7,7 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
-shader_param/color = Color( 0, 0, 0, 1 )
+shader_param/color = Color( 0.772549, 0.105882, 0.105882, 1 )
 
 [sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 0.0196078, 0.0196078, 0.0196078, 0, 0.87451, 0.662745, 0.0196078, 1 )
@@ -22,13 +22,15 @@ texture = ExtResource( 1 )
 script = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 21, 0, -20, -21, -21, 21 )
+visible = false
+polygon = PoolVector2Array( 21, 0, -21, -21, -21, 21 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="Trail" type="Node" parent="."]
 
 [node name="Points" type="Line2D" parent="Trail"]
+z_index = -1
 gradient = SubResource( 2 )
 
 [connection signal="area_entered" from="." to="." method="_on_Jumper_area_entered"]
