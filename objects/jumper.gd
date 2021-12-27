@@ -46,4 +46,8 @@ func die():
 
 func _on_VisibilityNotifier2D_screen_exited():
 	die()
-	
+
+
+func _on_Jumper_died():
+	get_tree().call_group("circles", "implode")
+	$Screens.game_over()

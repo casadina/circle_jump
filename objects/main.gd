@@ -21,6 +21,7 @@ func new_game():
 	add_child(player)
 	player.connect("captured", self, "_on_Jumper_captured")
 	spawn_circle(start_position)
+	player.connect("died", self, "_on_Jumper_died")
 	
 
 func spawn_circle(_position=null):
