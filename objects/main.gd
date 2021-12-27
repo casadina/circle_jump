@@ -12,7 +12,6 @@ var player
 
 func _ready():
 	randomize()
-	#new_game()
 	screens.connect("start_game", self, "new_game")
 	
 

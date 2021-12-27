@@ -25,7 +25,7 @@ script = ExtResource( 3 )
 visible = false
 polygon = PoolVector2Array( 21, 0, -21, -21, -21, 21 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+[node name="JumperVisibility" type="VisibilityNotifier2D" parent="."]
 
 [node name="Trail" type="Node" parent="."]
 
