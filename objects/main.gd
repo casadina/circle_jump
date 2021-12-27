@@ -45,8 +45,4 @@ func _on_Jumper_captured(object):
 func _on_Jumper_died():
 	get_tree().call_group("circles", "implode")
 	screens.game_over()
-	
 
-func _on_Screens_start_game():
-	print('starting game')
-	get_owner().new_game()
