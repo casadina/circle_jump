@@ -1,6 +1,7 @@
 extends Area2D
 
 signal captured
+signal died
 
 onready var trail = $Trail/Points
 
@@ -40,14 +41,10 @@ func _physics_process(delta):
 
 
 func die():
+	emit_signal("died")
 	target = null
 	queue_free()
 
 
 func _on_VisibilityNotifier2D_screen_exited():
 	die()
-
-
-func _on_Jumper_died():
-	get_tree().call_group("circles", "implode")
-	$Screens.game_over()

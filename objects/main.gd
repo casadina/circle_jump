@@ -5,13 +5,15 @@ var Jumper = preload("res://objects/jumper.tscn")
 
 onready var camera = $Camera2D
 onready var start_position = $StartPosition.position
+onready var screens = $Screens
 
 var player
 
 
 func _ready():
 	randomize()
-	new_game()
+	#new_game()
+	screens.connect("start_game", self, "new_game")
 	
 
 func new_game():
@@ -38,4 +40,13 @@ func _on_Jumper_captured(object):
 	camera.position = object.position
 	object.capture(player)
 	call_deferred("spawn_circle")
+
+
+func _on_Jumper_died():
+	get_tree().call_group("circles", "implode")
+	screens.game_over()
 	
+
+func _on_Screens_start_game():
+	print('starting game')
+	get_owner().new_game()
