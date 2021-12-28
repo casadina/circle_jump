@@ -7,11 +7,17 @@ onready var orbit_position= $Pivot/OrbitPosition
 onready var circle_collision = $CircleCollision
 onready var sprite = $Sprite
 onready var sprite_size = sprite.texture.get_size()
+onready var sprite_effect = $SpriteEffect
 onready var collision_shape = circle_collision.shape
 onready var animation_player = $AnimationPlayer
 onready var orbit_counter = $Label
+onready var beep = $Beep
 
 enum MODES {STATIC, LIMITED}
+
+var static_color = settings.theme["circle_static"]
+var limited_color = settings.theme["circle_limited"]
+var circle_fill = settings.theme["circle_fill"]
 
 var circle_radius = 100
 var rotation_speed = PI
@@ -29,6 +35,8 @@ func init(_position, _radius=circle_radius, _mode=MODES.LIMITED):
 	set_mode(_mode)
 	position = _position
 	circle_radius = _radius
+	sprite.material = sprite.material.duplicate()
+	sprite_effect.material = sprite.material
 	collision_shape = collision_shape.duplicate()
 	collision_shape.radius = circle_radius
 	var img_size = sprite_size.x / 2
@@ -39,13 +47,17 @@ func init(_position, _radius=circle_radius, _mode=MODES.LIMITED):
 
 func set_mode(_mode):
 	mode = _mode
+	var color
 	match mode:
 		MODES.STATIC:
 			orbit_counter.hide()
+			color = static_color
 		MODES.LIMITED:
 			current_orbits = num_orbits
 			orbit_counter.text = str(current_orbits)
 			orbit_counter.show()
+			color = limited_color
+	sprite.material.set_shader_param("color", color)
 	
 
 func _process(delta):
@@ -60,6 +72,8 @@ func check_orbits():
 	circled_amount = abs($Pivot.rotation - orbit_start)
 	if circled_amount > FULL_CIRCLE:
 		current_orbits -= 1
+		if settings.enable_sound:
+			beep.play()
 		orbit_counter.text = str(current_orbits)
 		if current_orbits <= 0:
 			jumper.die()
@@ -99,4 +113,4 @@ func _draw():
 		radius_divider = (circle_radius - 50) / num_orbits
 		var r = radius_divider * radius_multiplier
 		draw_circle_arc_poly(Vector2.ZERO, r + 10, orbit_start + PI / 2,
-							 $Pivot.rotation + PI / 2, Color(1, 0, 0))
+							 $Pivot.rotation + PI / 2, circle_fill)

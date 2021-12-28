@@ -1,7 +1,16 @@
 extends Node
 
+const AudioOn = preload("res://assets/images/buttons/audioOn.png")
+const AudioOff = preload("res://assets/images/buttons/audioOff.png")
+const MusicOn = preload("res://assets/images/buttons/musicOn.png")
+const MusicOff = preload("res://assets/images/buttons/musicOff.png")
+
 signal start_game
 
+onready var click = $Click
+
+var sound_buttons = {true: AudioOn, false: AudioOff}
+var music_buttons = {true: MusicOn, false: MusicOff}
 var current_screen = null
 
 
@@ -13,11 +22,13 @@ func _ready():
 func register_buttons():
 	var buttons = get_tree().get_nodes_in_group("buttons")
 	for button in buttons:
-		button.connect("pressed", self, "_on_button_pressed", [button.name])
+		button.connect("pressed", self, "_on_button_pressed", [button])
 
 
-func _on_button_pressed(name):
-	match name:
+func _on_button_pressed(button):
+	if settings.enable_sound:
+		click.play()
+	match button.name:
 		"Home":
 			change_screen($TitleScreen)
 		"Play":
@@ -25,8 +36,13 @@ func _on_button_pressed(name):
 			yield(get_tree().create_timer(0.5), "timeout")
 			emit_signal("start_game")
 		"Settings":
-			print('settings')
 			change_screen($SettingsScreen)
+		"Sound":
+			settings.enable_sound = not settings.enable_sound
+			button.texture_normal = sound_buttons[settings.enable_sound]
+		"Music":
+			settings.enable_music = not settings.enable_music
+			button.texture_normal = music_buttons[settings.enable_music]
 
 
 func change_screen(new_screen):
