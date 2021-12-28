@@ -4,6 +4,7 @@ signal captured
 signal died
 
 onready var trail := $Trail/Points
+onready var new_game: bool = true
 
 # Kill player if exit screen.
 # Cannot use is_on_screen as the first frame will return false.
@@ -12,7 +13,8 @@ onready var on_screen: bool = $JumperVisibility.connect(
 														self,
 														"_on_JumperVisibility_screen_exited"
 														)
-onready var game = get_parent()
+onready var game = get_owner()
+
 
 var trail_length = 25
 
