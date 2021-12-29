@@ -10,7 +10,8 @@ onready var hud = $HUD
 onready var music = $Music
 
 var player
-var score: int = 0
+var score: int = 0 setget set_score
+var level = 0
 
 
 func _ready():
@@ -23,8 +24,8 @@ func new_game():
 	if settings.enable_music:
 		music.play()
 		
-	score = 0
-	hud.update_score(score)
+	self.score = -1
+	level = 1
 	
 	camera.position = start_position
 	
@@ -36,6 +37,7 @@ func new_game():
 	spawn_circle(start_position)
 	player.connect("died", self, "_on_Jumper_died")
 	
+	hud.update_score(score)
 	hud.show()
 	hud.show_message("Go!")
 	
@@ -51,14 +53,18 @@ func spawn_circle(_position=null):
 
 
 func _on_Jumper_captured(object):
-	if player.new_game:
-		player.new_game = false
-	else:
-		camera.position = object.position
-		object.capture(player)
-		score += 1
-		hud.update_score(score)
+	camera.position = object.position
+	object.capture(player)
 	call_deferred("spawn_circle")
+	self.score += 1
+	
+
+func set_score(value):
+	score = value
+	hud.update_score(score)
+	if score > 0 and score % settings.circles_per_level == 0:
+		level += 1
+		hud.show_message("Level %s" % str(level))
 
 
 func _on_Jumper_died():

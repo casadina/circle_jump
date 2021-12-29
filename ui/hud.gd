@@ -19,4 +19,7 @@ func show():
 	
 
 func update_score(value):
-	score.text = str(value)
+	if value < 0:
+		score.text = str(0)
+	else:
+		score.text = str(value)
