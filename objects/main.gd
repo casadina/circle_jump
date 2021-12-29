@@ -23,8 +23,7 @@ func new_game():
 	if settings.enable_music:
 		music.play()
 		
-	score = 0
-	hud.update_score(score)
+	score = -1
 	
 	camera.position = start_position
 	
@@ -36,6 +35,7 @@ func new_game():
 	spawn_circle(start_position)
 	player.connect("died", self, "_on_Jumper_died")
 	
+	hud.update_score(score)
 	hud.show()
 	hud.show_message("Go!")
 	
@@ -51,13 +51,10 @@ func spawn_circle(_position=null):
 
 
 func _on_Jumper_captured(object):
-	if player.new_game:
-		player.new_game = false
-	else:
-		camera.position = object.position
-		object.capture(player)
-		score += 1
-		hud.update_score(score)
+	camera.position = object.position
+	object.capture(player)
+	score += 1
+	hud.update_score(score)
 	call_deferred("spawn_circle")
 
 

@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+onready var button_status
 onready var tween = $Tween
 
 func appear():
