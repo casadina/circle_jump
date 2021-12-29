@@ -129,3 +129,7 @@ __meta__ = {
 
 [node name="Beep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="MoveTween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="MoveTween" to="." method="set_tween"]

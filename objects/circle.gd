@@ -12,6 +12,7 @@ onready var collision_shape = circle_collision.shape
 onready var animation_player = $AnimationPlayer
 onready var orbit_counter = $Label
 onready var beep = $Beep
+onready var move_tween = $MoveTween
 
 enum MODES {STATIC, LIMITED}
 
@@ -29,6 +30,8 @@ var jumper = null
 var circled_amount: float
 var radius_multiplier
 var radius_divider
+var move_range = 100  # Distance the circle moves.
+var move_speed = 1.0  # The circle's movement speed.
 
 
 func init(_position, _radius=circle_radius, _mode=MODES.LIMITED):
@@ -43,6 +46,8 @@ func init(_position, _radius=circle_radius, _mode=MODES.LIMITED):
 	sprite.scale = Vector2(1, 1) * circle_radius / img_size
 	orbit_position.position.x = circle_radius + 25
 	rotation_speed *= pow(-1, randi() % 2)
+	set_tween()
+
 	
 
 func set_mode(_mode):
@@ -114,3 +119,13 @@ func _draw():
 		var r = radius_divider * radius_multiplier
 		draw_circle_arc_poly(Vector2.ZERO, r + 10, orbit_start + PI / 2,
 							 $Pivot.rotation + PI / 2, circle_fill)
+							
+
+func set_tween(_object=null, _key=null):
+	if not move_range:
+		return
+	move_range *= -1
+	move_tween.interpolate_property(self, "position:x",
+				position.x, position.x + move_range,
+				move_speed, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	move_tween.start()
