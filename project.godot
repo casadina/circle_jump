@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="circle_jump"
 run/main_scene="res://objects/main.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/images/icon.png"
 
 [autoload]
 

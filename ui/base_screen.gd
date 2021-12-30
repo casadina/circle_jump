@@ -22,3 +22,8 @@ func disappear():
 	tween.interpolate_property(self, "offset:x", 0, 500,
 							   0.4, tween.TRANS_BACK, tween.EASE_IN_OUT)
 	tween.start()
+	
+
+func _on_RichTextLabel_meta_clicked(meta):
+	OS.shell_open(meta)
+

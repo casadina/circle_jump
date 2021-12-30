@@ -23,6 +23,11 @@ func register_buttons():
 	var buttons = get_tree().get_nodes_in_group("buttons")
 	for button in buttons:
 		button.connect("pressed", self, "_on_button_pressed", [button])
+		match button.name:
+			"Sound":
+				button.texture_normal = sound_buttons[settings.enable_sound]
+			"Music":
+				button.texture_normal = music_buttons[settings.enable_music]
 
 
 func _on_button_pressed(button):
@@ -40,9 +45,13 @@ func _on_button_pressed(button):
 		"Sound":
 			settings.enable_sound = not settings.enable_sound
 			button.texture_normal = sound_buttons[settings.enable_sound]
+			settings.save_settings()
 		"Music":
 			settings.enable_music = not settings.enable_music
 			button.texture_normal = music_buttons[settings.enable_music]
+			settings.save_settings()
+		"About":
+			change_screen($AboutScreen)
 
 
 func change_screen(new_screen):
