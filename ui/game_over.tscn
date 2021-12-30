@@ -15,7 +15,7 @@ text = "Game Over"
 margin_top = 396.0
 margin_bottom = 496.0
 
-[node name="Return" type="TextureButton" parent="MarginContainer/VBoxContainer/Buttons" index="0" groups=["buttons"]]
+[node name="Home" type="TextureButton" parent="MarginContainer/VBoxContainer/Buttons" index="0" groups=["buttons"]]
 margin_left = 82.0
 margin_right = 182.0
 margin_bottom = 100.0
